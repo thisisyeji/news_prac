@@ -1,5 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import NewsItem from './NewsItem';
 import axios from 'axios';
+import styled from 'styled-components';
+
+const ListBox = styled.section`
+	width: 768px;
+	margin: 100px auto;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+`;
+
+const Loading = styled.div``;
 
 const NewsList = () => {
 	const [articles, setArticles] = useState(null);
@@ -18,17 +32,15 @@ const NewsList = () => {
 	}, []);
 
 	return (
-		<>
+		<ListBox>
 			{loading ? <div>...loading</div> : null}
 			{articles &&
 				articles.map((article) => (
 					<div key={article.url}>
-						<img src={article.urlToImage} alt={article.title} />
-						<h1>{article.title}</h1>
-						<span>{article.publishedAt}</span>
+						<NewsItem article={article} />
 					</div>
 				))}
-		</>
+		</ListBox>
 	);
 };
 
