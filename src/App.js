@@ -60,7 +60,7 @@ function App() {
 	return (
 		<>
 			<GlobalStyle />
-			<NewsList />
+			<Route />
 		</>
 	);
 }

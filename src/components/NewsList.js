@@ -13,8 +13,6 @@ const ListBox = styled.section`
 	align-items: center;
 `;
 
-const Loading = styled.div``;
-
 const NewsList = () => {
 	const [articles, setArticles] = useState(null);
 	const [loading, setLoading] = useState(false);
