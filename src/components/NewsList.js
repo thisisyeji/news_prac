@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import NewsItem from './NewsItem';
 import axios from 'axios';
 import styled from 'styled-components';
@@ -13,21 +13,26 @@ const ListBox = styled.section`
 	align-items: center;
 `;
 
-const NewsList = () => {
+const NewsList = ({ category }) => {
 	const [articles, setArticles] = useState(null);
 	const [loading, setLoading] = useState(false);
 
-	const getData = async () => {
+	const getData = useCallback(async () => {
 		setLoading(true);
-		const response = await axios.get(`
-  https://newsapi.org/v2/top-headlines?country=kr&category=business&apiKey=6a278c02193044bebdb4e28e35fcd854`);
-		setArticles(response.data.articles);
-	};
+		try {
+			const query = category === 'all' ? '' : `&category=${category}`;
+			const response = await axios.get(`
+https://newsapi.org/v2/top-headlines?country=kr${query}&apiKey=6a278c02193044bebdb4e28e35fcd854`);
+			setArticles(response.data.articles);
+		} catch (e) {
+			console.log(e);
+		}
+	}, [category]);
 
 	useEffect(() => {
 		getData();
 		setLoading(false);
-	}, []);
+	}, [getData]);
 
 	return (
 		<ListBox>

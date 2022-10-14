@@ -2,33 +2,65 @@ import React from 'react';
 import styled from 'styled-components';
 
 const ItemBox = styled.div`
-	margin-bottom: 80px;
+	background-color: #efefef;
+	border: 1px solid #999;
+	border-radius: 20px;
+	padding: 30px;
+	margin-bottom: 50px;
 
-	a {
-		width: 100%;
-		text-decoration: none;
-		color: black;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	transition: 0.5s;
 
-		img {
-			width: 100%;
-			margin-bottom: 20px;
-		}
-		h1 {
-			font-size: 24px;
-			font-weight: 700;
-			margin-bottom: 20px;
+	&:hover {
+		box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+		background-color: #fff;
+		transform: translateY(-5px);
+	}
 
-			&:hover {
-				text-decoration: underline;
+	.news_title {
+		width: 40%;
+		a {
+			text-decoration: none;
+			color: black;
+
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			img {
+				width: 90%;
+				margin: 0 auto;
+				margin-bottom: 20px;
 			}
 		}
+	}
 
-		p {
-			line-height: 1.5;
-			margin-bottom: 10px;
+	.news_contents {
+		width: 60%;
+		a {
+			text-decoration: none;
+			color: black;
 
-			&:hover {
-				text-decoration: underline;
+			h1 {
+				font-size: 24px;
+				font-weight: 700;
+				margin-bottom: 20px;
+
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+
+			p {
+				line-height: 1.5;
+				margin-bottom: 10px;
+
+				&:hover {
+					text-decoration: underline;
+				}
 			}
 		}
 	}
@@ -44,13 +76,21 @@ const NewsItem = ({ article }) => {
 	const { url, urlToImage, description, title, publishedAt } = article;
 	return (
 		<ItemBox>
-			<a href={url}>
-				<img src={urlToImage} alt={title} />
-				<h1>{title}</h1>
-				<p>{description}</p>
-			</a>
+			{urlToImage && (
+				<div className='news_title'>
+					<a href={url}>
+						<img src={urlToImage} alt={title} />
+					</a>
+				</div>
+			)}
 
-			<span> {publishedAt.substring(0, 10)}</span>
+			<div className='news_contents'>
+				<a href={url}>
+					<h1>{title}</h1>
+					<p>{description}</p>
+					<span> {publishedAt.substring(0, 10)}</span>
+				</a>
+			</div>
 		</ItemBox>
 	);
 };

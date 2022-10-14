@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
-import NewsList from './components/NewsList';
+import { Route } from 'react-router-dom';
+import NewsPages from './NewsPages';
 
 const GlobalStyle = createGlobalStyle`
 	html, body, div, span, applet, object, iframe,
@@ -38,6 +39,7 @@ body {
   line-height: 1;
 	width: 100%;
 	height: 100vh;
+	background-color: #efefef;
 }
 menu, ol, ul {
   list-style: none;
@@ -60,7 +62,7 @@ function App() {
 	return (
 		<>
 			<GlobalStyle />
-			<Route />
+			<Route path='/:category?' component={NewsPages} />;
 		</>
 	);
 }
