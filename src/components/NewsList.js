@@ -24,6 +24,7 @@ const NewsList = ({ category }) => {
 			const response = await axios.get(`
 https://newsapi.org/v2/top-headlines?country=kr${query}&apiKey=6a278c02193044bebdb4e28e35fcd854`);
 			setArticles(response.data.articles);
+			setLoading(false);
 		} catch (e) {
 			console.log(e);
 		}
@@ -31,18 +32,20 @@ https://newsapi.org/v2/top-headlines?country=kr${query}&apiKey=6a278c02193044beb
 
 	useEffect(() => {
 		getData();
-		setLoading(false);
 	}, [getData]);
 
 	return (
 		<ListBox>
-			{loading ? <div>...loading</div> : null}
-			{articles &&
+			{loading ? (
+				<div>... Loading ...</div>
+			) : (
+				articles &&
 				articles.map((article) => (
 					<div key={article.url}>
 						<NewsItem article={article} />
 					</div>
-				))}
+				))
+			)}
 		</ListBox>
 	);
 };
